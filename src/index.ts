@@ -1,24 +1,43 @@
-// Class는 JS로 변환됨. (interface는 안됨.)
-// JS에서는 public, private을 구분하지 않음.
-class Human {
-  public name: string;
-  private age: number;
-  public gender: string;
+import * as CryptoJS from "crypto-js";
 
-  constructor(name: string, age: number, gender: string) {
-    this.name = name;
-    this.age = age;
-    this.gender = gender;
+class Block {
+  public index: number;
+  public hash: string;
+  public previousHash: string;
+  public data: string;
+  public timestamp: number;
+
+  constructor(
+    index: number, 
+    hash: string, 
+    previousHash: string, 
+    data: string, 
+    timestamp: number
+  ) {
+    this.index = index;
+    this.hash = hash;
+    this.previousHash = previousHash;
+    this.data = data;
+    this.timestamp = timestamp;
   }
+  
+  static calculateBlockHash = (
+    index: number, 
+    previousHash: string, 
+    timestamp: number, 
+    data: string
+  ): string => 
+    CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
 }
 
-const yoobato = new Human("Yoobato", 31, "male");
+const genesisBlock: Block = new Block(0, "1234", "", "Hello", 123456);
 
-const sayHi = (person: Human): string => {
-  return `Hello ${person.name}, you are ${person.age}, you are a ${person.gender}!`;
-};
+let blockchain: Block[] = [genesisBlock];
 
-console.log(sayHi(yoobato));
+const getBlockchain = (): Block[] => blockchain;
 
-// 아래처럼 해주지 않으면 이 파일을 모듈로 인식하지 않는다. Typescript 버그인듯.
+const getLatestBlock = (): Block => blockchain[blockchain.length - 1];
+
+const getNewTimestamp = (): number => Math.round(new Date().getTime() / 1000);
+
 export {};
