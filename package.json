@@ -1,0 +1,13 @@
+{
+  "name": "simple-blockchain",
+  "version": "1.0.0",
+  "description": "Simple Blockchain with TypeScript",
+  "main": "index.js",
+  "repository": "https://github.com/yoobato/SimpleBlockchain",
+  "author": "Daeyeol Ryu <yoobato@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "prestart": "tsc"
+  }
+}
