@@ -1,3 +1,4 @@
+// interface는 Javscript로 변환되지 않음.
 interface Human {
   name: string,
   age: number,
